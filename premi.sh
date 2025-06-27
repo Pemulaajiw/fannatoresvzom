@@ -460,7 +460,7 @@ sudo chown root:root /etc/dropbear/dropbear_rsa_host_key
     clear
 }
 res12() {
-wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/noobzvpns.zip
+wget https://raw.githubusercontent.com/Pemulaajiw/script/main/noobzvpns.zip
 unzip noobzvpns.zip
 chmod +x noobzvpns/*
 cd noobzvpns
