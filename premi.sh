@@ -360,7 +360,7 @@ update-rc.d -f apparmor remove >/dev/null 2>&1 # Ini mungkin tidak ada di semua 
 apt-get purge apparmor apparmor-utils -y >/dev/null 2>&1
 
 clear
-wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/TOOLS/tools.sh &> /dev/null
+wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/tools.sh &> /dev/null
 chmod +x tools.sh 
 bash tools.sh
 start=$(date +%s)
@@ -376,7 +376,7 @@ apt install git curl python3 python3-pip apt-transport-https ca-certificates sof
 
 cd
 clear
-wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/TOOLS/limit.sh && chmod +x limit.sh && ./limit.sh
+wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/limit.sh && chmod +x limit.sh && ./limit.sh
 clear
 
 ##############################################################################
@@ -569,7 +569,7 @@ if [ ! -f "/etc/log-create-user.log" ]; then
 echo "Log All Account " > /etc/log-create-user.log
 fi
 history -c
-serverV=$( curl -sS https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/main/TOOLS/versi )
+serverV=$( curl -sS https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/versi )
 echo "$serverV" > /opt/.ver
 aureb=$(cat /home/re_otm) # Baris ini sekarang aman karena file dipastikan ada
 b=11
