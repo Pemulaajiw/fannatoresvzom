@@ -2,17 +2,17 @@
 
 apt install rclone
 printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/rclone.conf"
+wget -O /root/.config/rclone/rclone.conf "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/SKT-System/rclone.conf"
 git clone  https://github.com/casper9/wondershaper.git
 cd wondershaper
 make install
 cd
 rm -rf wondershaper
 cd /usr/bin
-wget -O backup "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/menu/backup.sh"
-wget -O restore "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/menu/restore.sh"
-wget -O cleaner "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/cleaner.sh"
-wget -O xp "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/xp.sh"
+wget -O backup "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/menu/backup.sh"
+wget -O restore "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/menu/restore.sh"
+wget -O cleaner "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/SKT-System/cleaner.sh"
+wget -O xp "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/SKT-System/xp.sh"
 chmod +x /usr/bin/backup
 chmod +x /usr/bin/restore
 chmod +x /usr/bin/cleaner
@@ -51,7 +51,7 @@ service cron restart > /dev/null 2>&1
 
 # > Pasang Limit
 
-wget "https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/TOOLS/limit.sh" >/dev/null 2>&1
+wget "https://raw.githubusercontent.com/Pemulaajiw/gas-trktr/refs/heads/main/SKT-Tools/limit.sh" >/dev/null 2>&1
 
 chmod +x limit.sh && bash limit.sh >/dev/null 2>&1
     
