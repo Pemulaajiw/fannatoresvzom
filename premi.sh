@@ -386,7 +386,7 @@ clear
 # Fungsi asli untuk instalasi modul - outputnya akan terlihat langsung
 res3() {
     echo -e "${GREEN}   Memulai instalasi SSH WS / OpenVPN...${NC}" # Pesan tambahan untuk kejelasan
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/ssh-vpn.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ssh-vpn.sh
     chmod +x ssh-vpn.sh
     ./ssh-vpn.sh
     clear
@@ -394,7 +394,7 @@ res3() {
 
 res4() {
     echo -e "${GREEN}   Memulai instalasi XRAY...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/ins-xray.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ins-xray.sh
     chmod +x ins-xray.sh
     ./ins-xray.sh
     clear
@@ -402,7 +402,7 @@ res4() {
 
 res5() {
     echo -e "${GREEN}   Memulai instalasi WEBSOCKET SSH...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/WEBSOCKET/insshws.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/insshws.sh
     chmod +x insshws.sh
     ./insshws.sh
     clear
@@ -410,7 +410,7 @@ res5() {
 
 res6() {
     echo -e "${GREEN}   Memulai instalasi BACKUP MENU...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/set-br.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/set-br.sh
     chmod +x set-br.sh
     ./set-br.sh
     clear
@@ -418,7 +418,7 @@ res6() {
 
 res7() {
     echo -e "${GREEN}   Memulai instalasi OHP...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/WEBSOCKET/ohp.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ohp.sh
     chmod +x ohp.sh
     ./ohp.sh
     clear
@@ -426,7 +426,7 @@ res7() {
 
 res8() {
     echo -e "${GREEN}   Memulai pengunduhan EXTRA MENU...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/menu/update.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/update.sh
     chmod +x update.sh
     ./update.sh
     clear
@@ -434,7 +434,7 @@ res8() {
 
 res9() {
     echo -e "${GREEN}   Memulai pengunduhan SLOWDNS...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/slowdns.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/slowdns.sh
     chmod +x slowdns.sh
     ./slowdns.sh
     clear
@@ -442,7 +442,7 @@ res9() {
 
 res10() {
     echo -e "${GREEN}   Memulai pengunduhan UDP CUSTOM...${NC}"
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/SYSTEM/udp-custom.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/udp-custom.sh
     chmod +x udp-custom.sh
     bash udp-custom.sh # Menggunakan bash karena skrip aslinya menggunakan bash di sini
     clear
@@ -459,6 +459,26 @@ sudo chown root:root /etc/dropbear/dropbear_dss_host_key
 sudo chown root:root /etc/dropbear/dropbear_rsa_host_key
     clear
 }
+res12() {
+wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/noobzvpns.zip
+unzip noobzvpns.zip
+chmod +x noobzvpns/*
+cd noobzvpns
+bash install.sh
+rm -rf noobzvpns
+systemctl restart noobzvpns
+clear
+}
+
+res13() {
+wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ins-trgo.sh && chmod +x ins-trgo.sh && ./ins-trgo.sh
+clear
+}
+
+#res14() {
+#wget -q -O /etc/crontab "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/crontab" && chmod 644 /etc/crontab
+#clear
+#}
 
 # Bagian pemanggilan fungsi di SKT4100
 # LANGSUNG PANGGIL FUNGSI RESX UNTUK MELIHAT OUTPUTNYA
@@ -502,6 +522,20 @@ function SKT4100(){
     echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD UDP COSTUM             ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res10
+    
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR}    PROCESS INSTALLED NOOBZVPNS         ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    fun_bar 'res12'
+
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR}    PROCESS INSTALLED TOJAN-GO        ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    fun_bar 'res13'
+    #echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    #echo -e "${BIBlue}│ ${BGCOLOR}    PROCESS INSTALLED CRONTAB         ${NC}${BIBlue} │${NC}"
+    #echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    #fun_bar 'res14'
 }
 SKT4100 # Memanggil fungsi SKT4100
 
