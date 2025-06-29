@@ -62,7 +62,7 @@ while true; do
 
     # Menggunakan curl untuk memeriksa apakah client_name ada dalam file permission.txt
     # PERBAIKAN: Menggunakan URL raw.githubusercontent.com yang benar
-    permission_file=$(curl -s https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ijin)
+    permission_file=$(curl -s https://raw.githubusercontent.com/Pemulaajiw/autsctrakteer/refs/heads/main/izin.txt)
     
     # PERBAIKAN: Mengambil IP_VPS juga untuk validasi di ijin
     IP_VPS=$(curl -s https://ipinfo.io/ip) # Pastikan ini mengambil IP publik
