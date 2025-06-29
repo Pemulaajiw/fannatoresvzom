@@ -55,22 +55,22 @@ service sshd restart
 #konfigurasi slowdns
 rm -rf /etc/slowdns
 mkdir -m 777 /etc/slowdns
-wget -q -O /etc/slowdns/server.key "https://raw.githubusercontent.com/hokagelegend9999/alpha.v2/refs/heads/main/slowdns/server.key"
-wget -q -O /etc/slowdns/server.pub "https://raw.githubusercontent.com/hokagelegend9999/alpha.v2/refs/heads/main/slowdns/server.pub"
-wget -q -O /etc/slowdns/sldns-server "https://raw.githubusercontent.com/hokagelegend9999/alpha.v2/refs/heads/main/slowdns/sldns-server"
-wget -q -O /etc/slowdns/sldns-client "https://raw.githubusercontent.com/hokagelegend9999/alpha.v2/refs/heads/main/slowdns/sldns-client"
+wget -q -O /etc/slowdns/server.key "https://raw.githubusercontent.com/Pemulaajiw/script/refs/heads/main/slowdns/client"
+wget -q -O /etc/slowdns/server.pub "https://raw.githubusercontent.com/Pemulaajiw/script/refs/heads/main/slowdns/server.pub"
+wget -q -O /etc/slowdns/sldns-server "https://raw.githubusercontent.com/Pemulaajiw/script/refs/heads/main/slowdns/dnstt-server"
+wget -q -O /etc/slowdns/sldns-client "https://raw.githubusercontent.com/Pemulaajiw/script/refs/heads/main/slowdns/dnstt-client"
 cd
-chmod +x /etc/slowdns/server.key
+chmod +x /etc/slowdns/client
 chmod +x /etc/slowdns/server.pub
-chmod +x /etc/slowdns/sldns-server
-chmod +x /etc/slowdns/sldns-client
+chmod +x /etc/slowdns/dnstt-server
+chmod +x /etc/slowdns/dnstt-client
 
 cd
 #install client-sldns.service
-cat > /etc/systemd/system/client-sldns.service << END
+cat > /etc/systemd/system/client-dnstt.service << END
 [Unit]
-Description=Client SlowDNS By Hokage
-Documentation=https://t.me/hokagelegend1
+Description=Client SlowDNS By FANSTORE
+Documentation=https://t.me/AJW29
 After=network.target nss-lookup.target
 
 [Service]
@@ -79,7 +79,7 @@ User=root
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 NoNewPrivileges=true
-ExecStart=/etc/slowdns/sldns-client -udp 8.8.8.8:53 --pubkey-file /etc/slowdns/server.pub $nameserver 127.0.0.1:2222
+ExecStart=/etc/slowdns/dnstt-client -udp 8.8.8.8:53 --pubkey-file /etc/slowdns/server.pub $nameserver 127.0.0.1:2222
 Restart=on-failure
 
 [Install]
@@ -87,11 +87,11 @@ WantedBy=multi-user.target
 END
 
 cd
-#install server-sldns.service
-cat > /etc/systemd/system/server-sldns.service << END
+#install server-dnstt.service
+cat > /etc/systemd/system/server-dnstt.service << END
 [Unit]
-Description=Server SlowDNS By Hokage Legend
-Documentation=https://t.me/hokagelegend1
+Description=Server SlowDNS By FAN STORE
+Documentation=https://t.me/AJW29
 After=network.target nss-lookup.target
 
 [Service]
@@ -100,7 +100,7 @@ User=root
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 NoNewPrivileges=true
-ExecStart=/etc/slowdns/sldns-server -udp :5300 -privkey-file /etc/slowdns/server.key $nameserver 127.0.0.1:2269
+ExecStart=/etc/slowdns/dnstt-server -udp :5300 -privkey-file /etc/slowdns/client $nameserver 127.0.0.1:2269
 Restart=on-failure
 
 [Install]
@@ -109,21 +109,21 @@ END
 
 #permission service slowdns
 cd
-chmod +x /etc/systemd/system/client-sldns.service
+chmod +x /etc/systemd/system/client-dnstt.service
 
-chmod +x /etc/systemd/system/server-sldns.service
-pkill sldns-server
-pkill sldns-client
+chmod +x /etc/systemd/system/server-dnstt.service
+pkill dnstt-server
+pkill dnstt-client
 
 systemctl daemon-reload
-systemctl stop client-sldns
-systemctl stop server-sldns
+systemctl stop client-dnstt
+systemctl stop server-dnstt
 
-systemctl enable client-sldns
-systemctl enable server-sldns
+systemctl enable client-dnstt
+systemctl enable server-dnstt
 
-systemctl start client-sldns
-systemctl start server-sldns
+systemctl start client-dnstt
+systemctl start server-dnstt
 
-systemctl restart client-sldns
-systemctl restart server-sldns
+systemctl restart client-dnstt
+systemctl restart server-dnstt
