@@ -62,9 +62,9 @@ while true; do
 
     # Menggunakan curl untuk memeriksa apakah client_name ada dalam file permission.txt
     # PERBAIKAN: Menggunakan URL raw.githubusercontent.com yang benar
-    permission_file=$(curl -s https://raw.githubusercontent.com/hokagelegend9999/genom/refs/heads/main/izin.txt)
+    permission_file=$(curl -s https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ijin)
     
-    # PERBAIKAN: Mengambil IP_VPS juga untuk validasi di izin.txt
+    # PERBAIKAN: Mengambil IP_VPS juga untuk validasi di ijin
     IP_VPS=$(curl -s https://ipinfo.io/ip) # Pastikan ini mengambil IP publik
 
     if echo "$permission_file" | grep -q -i "$client_name" && echo "$permission_file" | grep -q "$IP_VPS"; then
@@ -87,7 +87,7 @@ while true; do
         break
     else
         echo -e "${RED}❌ Client Name atau IP ($IP_VPS) tidak terdaftar!${NC}"
-        echo -e "➥ Hubungi admin ${CYAN}「 ✦ @HokageLegend ✦ 」${NC}"
+        echo -e "➥ Hubungi admin ${CYAN}「 ✦ 087898083051 ✦ 」${NC}"
         rm -f /root/home # Ganti dengan path yang sesuai ke file installer
         exit 1
     fi
@@ -102,14 +102,14 @@ sleep 2
 clear
 
 # Telegram Bot API details
-TOKEN="7911375235:AAERwknqnWLoqWFbsSuUfqCQGMy93UQHUTk"
-CHAT_ID="1469244768"
+TOKEN="7257456294:AAF_EwHS4dMkbnnRdlR3TLJu7eK225Lbb3Y"
+CHAT_ID="6197482164"
 
 # Function to send message to Telegram
 send_telegram_message() {
     MESSAGE=$1
-    BUTTON1_URL="https://t.me/hokagelegend1"
-    BUTTON2_URL="https://wa.me/087726917005"
+    BUTTON1_URL="https://t.me/AJW29"
+    BUTTON2_URL="https://wa.me/087898083051"
     BUTTON_TEXT1="Telegram 😎"
     BUTTON_TEXT2="Whatsapp 🐳"
 
@@ -643,7 +643,7 @@ MESSAGE="\`\`\`
 ❖ Tanggal     : $DATE
 ❖ Domain      : $DOMAIN
 ❏━━━━━━━━***************━━━━━━━━━❏
-👑 Dev https://t.me/hokagelegend1 👑
+👑 Dev https://t.me/AJW29 👑
 ❏━━━━━━━******************━━━━━━━━❏
 \`\`\`"
 
