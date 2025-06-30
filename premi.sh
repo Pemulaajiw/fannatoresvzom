@@ -62,7 +62,7 @@ while true; do
 
     # Menggunakan curl untuk memeriksa apakah client_name ada dalam file permission.txt
     # PERBAIKAN: Menggunakan URL raw.githubusercontent.com yang benar
-    permission_file=$(curl -s https://raw.githubusercontent.com/Pemulaajiw/autsctrakteer/refs/heads/main/izin.txt)
+    permission_file=$(curl -s https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ijin)
     
     # PERBAIKAN: Mengambil IP_VPS juga untuk validasi di ijin
     IP_VPS=$(curl -s https://ipinfo.io/ip) # Pastikan ini mengambil IP publik
@@ -88,7 +88,7 @@ while true; do
     else
         echo -e "${RED}❌ Client Name atau IP ($IP_VPS) tidak terdaftar!${NC}"
         echo -e "➥ Hubungi admin ${CYAN}「 ✦ 087898083051 ✦ 」${NC}"
-        rm -f /root/home # Ganti dengan path yang sesuai ke file installer
+        rm -f /root/premi.sh # Ganti dengan path yang sesuai ke file installer
         exit 1
     fi
 done
@@ -168,9 +168,6 @@ secs_to_human() {
 
 ##############################################################################
 
-rm -rf /etc/phreakers
-mkdir -p /etc/phreakers
-mkdir -p /etc/phreakers/theme
 mkdir -p /var/lib/ >/dev/null 2>&1
 echo "IP=" >> /var/lib/ipvps.conf
 clear
@@ -544,8 +541,8 @@ SKT4100 # Memanggil fungsi SKT4100
 ##############################################################################
 
 # PERBAIKAN: Pastikan file /home/re_otm ada dan berikan nilai default jika tidak
-if [ ! -f "/home/re_otm" ]; then
-    echo "0" > /home/re_otm
+if [ ! -f "/premi.sh/re_otm" ]; then
+    echo "0" > /premi.sh/re_otm
 fi
 
 cat> /root/.profile << END
@@ -654,7 +651,7 @@ sleep 2
 echo -e "${BIBlue}════════════════════════════════════════${NC}"
 echo -e "${BIBlue} Script telah berhasil di install"
 rm -rf *
-rm /root/home
+rm /root/premi.sh
 echo -e ""
 echo -e "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? "
 read answer
