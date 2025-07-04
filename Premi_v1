@@ -223,7 +223,7 @@ echo -e "${BIBlue}╭═══════════════════�
 echo -e "${BIBlue}│ \033[1;37mPlease select a your Choice to Set Domain${BIBlue}│${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
 echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri & Domain SlowDNS Kamu Sendiri     ${NC}"
+echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri     ${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
 until [[ $domain =~ ^1$ ]]; do
     read -p "    Please select number 1 : " domain
@@ -245,15 +245,6 @@ if [[ $domain == "1" ]]; then
     echo "$dns1" > /etc/v2ray/domain
     echo "IP=$dns1" > /var/lib/ipvps.conf
     clear
-    echo " "
-    until [[ $dns2 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-        echo -e "${BIBlue}══════════════════════════════════════════${NC}"
-        read -rp "Masukan Domain SlowDNS kamu Disini : " -e dns2
-    done
-    mkdir -p /etc/xray
-    touch /etc/xray/nsdomain
-    echo "$dns2" > /etc/xray/nsdomain
-    echo "$dns2" >/etc/xray/dns
 fi
 
 # --- Daftar Tema Warna ---
@@ -287,7 +278,7 @@ TEXT : \033[0;37m
 EOF
 cat <<EOF>> /etc/rmbl/theme/darkgray
 BG : \E[40;1;100m
-TEXT : \033[0;90m
+TEX: \033[0;90m
 EOF
 cat <<EOF>> /etc/rmbl/theme/lightred
 BG : \E[40;1;101m
