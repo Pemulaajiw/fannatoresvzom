@@ -223,106 +223,92 @@ echo -e "${BIBlue}╭═══════════════════�
 echo -e "${BIBlue}│ \033[1;37mPlease select a your Choice to Set Domain${BIBlue}│${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
 echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri     ${NC}"
+echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri & Domain SlowDNS Kamu Sendiri    ${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-until [[ $domain =~ ^1$ ]]; do
-    read -p "    Please select number 1 : " domain
+until [[ $domain =~ ^1$ ]]; do 
+read -p "   Please select number 1 : " domain
 done
 
 if [[ $domain == "1" ]]; then
-    clear
-    echo " "
-    until [[ $dns1 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-        echo -e "${BIBlue}══════════════════════════════════════════${NC}"
-        read -rp "Masukan domain kamu Disini : " -e dns1
-    done
-    echo ""
-    mkdir -p /etc/xray
-    mkdir -p /etc/v2ray
-    touch /etc/xray/domain
-    touch /etc/v2ray/domain
-    echo "$dns1" > /etc/xray/domain
-    echo "$dns1" > /etc/v2ray/domain
-    echo "IP=$dns1" > /var/lib/ipvps.conf
-    clear
+clear
+
+echo " "
+until [[ $dns1 =~ ^[a-zA-Z0-9_.-]+$ ]]; do 
+echo -e "${BIBlue}══════════════════════════════════════════${NC}"
+read -rp "Masukan domain kamu Disini : " -e dns1
+
+done
+echo ""
+mkdir -p /etc/xray
+mkdir -p /etc/v2ray
+touch /etc/xray/domain
+touch /etc/v2ray/domain
+echo "$dns1" > /etc/xray/domain
+echo "$dns1" > /etc/v2ray/domain
+echo "IP=$dns1" > /var/lib/ipvps.conf
+clear
+echo " "
+until [[ $dns2 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
+echo -e "${BIBlue}══════════════════════════════════════════${NC}"
+read -rp "Masukan Domain SlowDNS kamu Disini : " -e dns2
+done
+mkdir -p /etc/xray
+touch /etc/xray/nsdomain
+echo "$dns2" > /etc/xray/nsdomain
+echo "$dns2" >/etc/xray/dns
 fi
 
-# --- Daftar Tema Warna ---
-cat <<EOF>> /etc/rmbl/theme/green
-BG : \E[40;1;42m
-TEXT : \033[0;32m
-EOF
-cat <<EOF>> /etc/rmbl/theme/yellow
-BG : \E[40;1;43m
-TEXT : \033[0;33m
-EOF
-cat <<EOF>> /etc/rmbl/theme/red
-BG : \E[40;1;41m
-TEXT : \033[0;31m
-EOF
-cat <<EOF>> /etc/rmbl/theme/blue
-BG : \E[40;1;44m
-TEXT : \033[0;34m
-EOF
-cat <<EOF>> /etc/rmbl/theme/magenta
-BG : \E[40;1;45m
-TEXT : \033[0;35m
-EOF
-cat <<EOF>> /etc/rmbl/theme/cyan
-BG : \E[40;1;46m
-TEXT : \033[0;36m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightgray
-BG : \E[40;1;47m
-TEXT : \033[0;37m
-EOF
-cat <<EOF>> /etc/rmbl/theme/darkgray
-BG : \E[40;1;100m
-TEX: \033[0;90m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightred
-BG : \E[40;1;101m
-TEXT : \033[0;91m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightgreen
-BG : \E[40;1;102m
-TEXT : \033[0;92m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightyellow
-BG : \E[40;1;103m
-TEXT : \033[0;93m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightblue
-BG : \E[40;1;104m
-TEXT : \033[0;94m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightmagenta
-BG : \E[40;1;105m
-TEXT : \033[0;95m
-EOF
-cat <<EOF>> /etc/rmbl/theme/lightcyan
-BG : \E[40;1;106m
-TEXT : \033[0;96m
-EOF
-cat <<EOF>> /etc/rmbl/theme/color.conf
-lightcyan
-EOF
-cat <<EOF>> /etc/rmbl/warnafont/fontgren
-WARNAF : \033[1;92m
-EOF
-cat <<EOF>> /etc/rmbl/warnafont/fontcyan
-WARNAF : \033[1;96m
-EOF
-cat <<EOF>> /etc/rmbl/warnafont/fontlight
-WARNAF : \033[1;37m
-EOF
-cat <<EOF>> /etc/rmbl/warnafont/warnaf.conf
-fontlight
+
+##############################################################################
+
+# Daftar tema warna
+declare -A themes=(
+  [red]=$'\E[40;1;41m:\033[0;31m'
+  [green]=$'\E[40;1;42m:\033[0;32m'
+  [yellow]=$'\E[40;1;43m:\033[0;33m'
+  [blue]=$'\E[40;1;44m:\033[0;34m'
+  [magenta]=$'\E[40;1;95m:\033[0;95m'
+  [cyan]=$'\E[40;1;46m:\033[0;36m'
+  [lightgray]=$'\E[40;1;47m:\033[0;37m'
+  [darkgray]=$'\E[40;1;100m:\033[0;90m'
+  [lightred]=$'\E[40;1;101m:\033[0;91m'
+  [lightgreen]=$'\E[40;1;102m:\033[0;92m'
+  [lightyellow]=$'\E[40;1;103m:\033[0;93m'
+  [lightblue]=$'\E[40;1;104m:\033[0;94m'
+  [lightmagenta]=$'\E[40;1;105m:\033[0;95m
+  [lightcyan]=$'\E[40;1;106m:\033[0;96m'
+)
+
+# Daftar text warna
+declare -A warnaf=(
+  [fontgren]=$'\033[1;92m'
+  [fontcyan]=$'\033[1;96m'
+  [fontlight]=$'\033[1;37m'
+)
+
+# Membuat file konfigurasi tema
+for color in "${!themes[@]}"; do
+  IFS=':' read -r bg text <<< "${themes[$color]}"
+  cat << EOF > "/etc/rmbl/theme/${color}"
+BG : ${bg}
+TEXT : ${text}
 EOF
 done
 
+# Membuat file konfigurasi text
+for color in "${!warnaf[@]}"; do
+  IFS=':' read -r warnaf_text <<< "${warnaf[$color]}"
+  cat << EOF > "/etc/rmbl/warnafont/${color}"
+WARNAF_TEXT : ${warnaf_text}
+EOF
+done
+
+
 # Set tema default ke cyan
 echo "cyan" > /etc/rmbl/theme/color.conf
+
+# Set text default ke light
+echo "fontlight" > /etc/rmbl/warnafont/color.conf
 
 # --- Disable IPv6 ---
 echo -e "${GREEN}Mematikan IPv6...${NC}"
