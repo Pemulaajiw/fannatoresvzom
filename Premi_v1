@@ -275,7 +275,7 @@ declare -A themes=(
   [lightgreen]=$'\E[40;1;102m:\033[0;92m'
   [lightyellow]=$'\E[40;1;103m:\033[0;93m'
   [lightblue]=$'\E[40;1;104m:\033[0;94m'
-  [lightmagenta]=$'\E[40;1;105m:\033[0;95m
+  [lightmagenta]=$'\E[40;1;105m:\033[0;95m'
   [lightcyan]=$'\E[40;1;106m:\033[0;96m'
 )
 
