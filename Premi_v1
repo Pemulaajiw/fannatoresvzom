@@ -310,6 +310,9 @@ echo "cyan" > /etc/rmbl/theme/color.conf
 # Set text default ke light
 echo "fontlight" > /etc/rmbl/warnafont/color.conf
 
+##############################################################################
+
+cd
 # --- Disable IPv6 ---
 echo -e "${GREEN}Mematikan IPv6...${NC}"
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
