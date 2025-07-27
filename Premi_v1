@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script Installer
-# Dibuat oleh: TMTUNELMERAUKE
+# Dibuat oleh: TMTUNNEL D SABANG-MERAUKE
 
 # --- Definisi Warna ---
 NC='\033[0m' # No Color
@@ -91,7 +91,7 @@ while true; do
         break
     else
         echo -e "${red}❌ Client Name atau IP ($IP_VPS) tidak terdaftar!${NC}"
-        echo -e "➥ Hubungi admin ${CYAN}「 ✦ 087898083051 ✦ 」${NC}"
+        echo -e "➥ Hubungi admin ${CYAN}「 ✦ @@JW29 ✦ 」${NC}"
         # Hapus file installer jika validasi gagal
         rm -f /root/home 
         exit 1
@@ -168,7 +168,21 @@ mkdir -p /etc/rmbl
 mkdir -p /etc/rmbl/theme
 mkdir -p /etc/rmbl/warnafont
 mkdir -p /var/lib/ >/dev/null 2>&1
+mkdir -p /etc/xray
+mkdir -p /root/.info
+curl -s ifconfig.me > /etc/xray/ipvps
+touch /etc/xray/domain
+mkdir -p /var/log/xray
+mkdir -p /root/.info
+ mkdir -p /etc/user-create
+curl -sS "ipinfo.io/org?token=7a814b6263b02c" > /root/.info/.isp
+curl "ipinfo.io/city?token=7a814b6263b02c" > /root/.city
+chown www-data.www-data /var/log/xray
+chmod +x /var/log/xray
+touch /var/log/xray/access.log
+touch /var/log/xray/error.log
 echo "IP=" >> /var/lib/ipvps.conf
+echo "echo -e 'Vps Config User Account'" >> /etc/user-create/user.log
 clear
 
 # --- Input Nama Pengguna ---
@@ -223,45 +237,45 @@ echo -e "${BIBlue}╭═══════════════════�
 echo -e "${BIBlue}│ \033[1;37mPlease select a your Choice to Set Domain${BIBlue}│${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
 echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri & Domain SlowDNS Kamu Sendiri    ${NC}"
+echo -e "${BIBlue}│  [ 1 ]  \033[1;37mDomain Kamu Sendiri & Domain SlowDNS Kamu Sendiri     ${NC}"
 echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-until [[ $domain =~ ^1$ ]]; do 
-read -p "   Please select number 1 : " domain
+until [[ $domain =~ ^1$ ]]; do
+    read -p "    Please select number 1 : " domain
 done
 
 if [[ $domain == "1" ]]; then
-clear
-
-echo " "
-until [[ $dns1 =~ ^[a-zA-Z0-9_.-]+$ ]]; do 
-echo -e "${BIBlue}══════════════════════════════════════════${NC}"
-read -rp "Masukan domain kamu Disini : " -e dns1
-
-done
-echo ""
-mkdir -p /etc/xray
-mkdir -p /etc/v2ray
-touch /etc/xray/domain
-touch /etc/v2ray/domain
-echo "$dns1" > /etc/xray/domain
-echo "$dns1" > /etc/v2ray/domain
-echo "IP=$dns1" > /var/lib/ipvps.conf
-clear
-echo " "
-until [[ $dns2 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
-echo -e "${BIBlue}══════════════════════════════════════════${NC}"
-read -rp "Masukan Domain SlowDNS kamu Disini : " -e dns2
-done
-mkdir -p /etc/xray
-touch /etc/xray/nsdomain
-echo "$dns2" > /etc/xray/nsdomain
-echo "$dns2" >/etc/xray/dns
+    clear
+    echo " "
+    until [[ $dns1 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
+        echo -e "${BIBlue}══════════════════════════════════════════${NC}"
+        read -rp "Masukan domain kamu Disini : " -e dns1
+    done
+    echo ""
+    mkdir -p /etc/xray
+    mkdir -p /var/lib/kyt >/dev/null 2>&1
+    mkdir -p /etc/v2ray
+    echo $host1 > /etc/xray/domain
+    touch /etc/xray/domain
+    touch /etc/v2ray/domain
+    echo "$dns1" > /etc/nsdomain
+    echo "$dns1" > /etc/xray/domain
+    echo "$dns1" > /etc/v2ray/domain
+    echo "IP=$dns1" > /var/lib/ipvps.conf
+    echo "IP=${host1}" >> /var/lib/kyt/ipvps.conf
+    clear
+    echo " "
+    until [[ $dns2 =~ ^[a-zA-Z0-9_.-]+$ ]]; do
+        echo -e "${BIBlue}══════════════════════════════════════════${NC}"
+        read -rp "Masukan Domain SlowDNS kamu Disini : " -e dns2
+    done
+    mkdir -p /etc/xray
+    touch /etc/xray/nsdomain
+    echo "$dns2" > /etc/xray/nsdomain
+    echo "$dns2" >/etc/xray/dns
+    
 fi
 
-
-##############################################################################
-
-# Daftar tema warna
+# --- Daftar Tema Warna ---
 declare -A themes=(
   [red]=$'\E[40;1;41m:\033[0;31m'
   [green]=$'\E[40;1;42m:\033[0;32m'
@@ -303,16 +317,12 @@ WARNAF_TEXT : ${warnaf_text}
 EOF
 done
 
-
 # Set tema default ke cyan
 echo "cyan" > /etc/rmbl/theme/color.conf
 
 # Set text default ke light
 echo "fontlight" > /etc/rmbl/warnafont/color.conf
 
-##############################################################################
-
-cd
 # --- Disable IPv6 ---
 echo -e "${GREEN}Mematikan IPv6...${NC}"
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
@@ -331,7 +341,7 @@ apt-get purge apparmor apparmor-utils -y >/dev/null 2>&1
 clear
 
 # --- Instalasi Tools Awal ---
-wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/tools.sh -O tools.sh &> /dev/null
+wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/tools.sh -O tools.sh &> /dev/null
 chmod +x tools.sh
 bash tools.sh
 start=$(date +%s)
@@ -353,7 +363,7 @@ clear
 # --- Fungsi Instalasi Modul ---
 res3() {
     echo -e "${GREEN}    Memulai instalasi SSH WS / OpenVPN...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ssh-vpn.sh -O ssh-vpn.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ssh-vpn.sh -O ssh-vpn.sh
     chmod +x ssh-vpn.sh
     ./ssh-vpn.sh
     sudo systemctl enable --now chrony.service
@@ -363,7 +373,7 @@ res3() {
 
 res4() {
     echo -e "${GREEN}    Memulai instalasi XRAY...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ins-xray.sh -O ins-xray.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ins-xray.sh -O ins-xray.sh
     chmod +x ins-xray.sh
     ./ins-xray.sh
     clear
@@ -371,7 +381,7 @@ res4() {
 
 res5() {
     echo -e "${GREEN}    Memulai instalasi WEBSOCKET SSH...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/insshws.sh -O insshws.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/insshws.sh -O insshws.sh
     chmod +x insshws.sh
     ./insshws.sh
     clear
@@ -379,7 +389,7 @@ res5() {
 
 res6() {
     echo -e "${GREEN}    Memulai instalasi BACKUP MENU...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/set-br.sh -O set-br.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/set-br.sh -O set-br.sh
     chmod +x set-br.sh
     ./set-br.sh
     clear
@@ -387,7 +397,7 @@ res6() {
 
 res7() {
     echo -e "${GREEN}    Memulai instalasi OHP...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ohp.sh -O ohp.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ohp.sh -O ohp.sh
     chmod +x ohp.sh
     ./ohp.sh
     clear
@@ -395,7 +405,7 @@ res7() {
 
 res8() {
     echo -e "${GREEN}    Memulai pengunduhan EXTRA MENU...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/update.sh -O update.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/update.sh -O update.sh
     chmod +x update.sh
     ./update.sh
     clear
@@ -403,7 +413,7 @@ res8() {
 
 res9() {
     echo -e "${GREEN}    Memulai pengunduhan SLOWDNS...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/slowdns.sh -O slowdns.sh
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/slowdns.sh -O slowdns.sh
     chmod +x slowdns.sh
     ./slowdns.sh
     clear
@@ -411,7 +421,10 @@ res9() {
 
 res10() {
     echo -e "${GREEN}    Memulai pengunduhan UDP CUSTOM...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/udp-custom.sh -O udp-custom.sh
+    mkdir -p /usr/local/kyt/
+    wget -q -O /usr/local/kyt/udp-mini "${REPO}Fls/udp-mini"
+     chmod +x /usr/local/kyt/udp-mini
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/udp-custom.sh -O udp-custom.sh
     chmod +x udp-custom.sh
     bash udp-custom.sh
     clear
@@ -432,30 +445,13 @@ res11() {
     sudo chmod 600 /etc/dropbear/dropbear_rsa_host_key
     sudo chown root:root /etc/dropbear/dropbear_dss_host_key
     sudo chown root:root /etc/dropbear/dropbear_rsa_host_key
+    sed -i 's/^NO_START=.*/NO_START=0/' /etc/default/dropbear
     sudo systemctl daemon-reload
     sudo systemctl restart dropbear
      sudo systemctl enable nginx
     clear
 }
-
 res12() {
-    echo -e "${GREEN}    Memulai pengunduhan NOOBZ...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/script/main/noobzvpns.zip
-    unzip noobzvpns.zip
-    chmod +x noobzvpns/*
-    cd noobzvpns
-    bash install.sh
-    rm -rf noobzvpns
-    systemctl restart noobzvpns
-    clear
-}
-
-res13() {
-    echo -e "${GREEN}    Memulai pengunduhan TR-GO...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ins-trgo.sh && chmod +x       ins-trgo.sh && ./ins-trgo.sh
-    clear
-}
-res14() {
     echo -e "${GREEN}   Mengatur jadwal reboot harian...${NC}"
     
     # Definisikan cron job yang ingin ditambahkan
@@ -471,9 +467,45 @@ res14() {
         echo -e "${YELLOW}   -> Jadwal reboot otomatis sudah ada, tidak ada yang diubah.${NC}"
     fi
 }
+res13() {
+    echo -e "${GREEN}   Mengatur jadwal update kuota otomatis...${NC}"
+    
+    # Definisikan cron job yang ingin ditambahkan (setiap 1 menit)
+    # Redirect output >/dev/null 2>&1 agar tidak membuat log spam
+    USAGE_JOB="*/1 * * * * /usr/bin/update-usage.sh >/dev/null 2>&1"
+
+    # Periksa apakah cron job tersebut sudah ada
+    if ! sudo crontab -l | grep -Fxq "$USAGE_JOB"; then
+        # Jika TIDAK ADA, maka tambahkan
+        (sudo crontab -l 2>/dev/null; echo "$USAGE_JOB") | sudo crontab -
+        echo -e "${GREEN}   -> Jadwal update kuota setiap 1 menit telah berhasil ditambahkan.${NC}"
+    else
+        # Jika SUDAH ADA, beri pesan dan jangan lakukan apa-apa
+        echo -e "${YELLOW}   -> Jadwal update kuota otomatis sudah ada, tidak ada yang diubah.${NC}"
+    fi
+}
+
+res14() {
+    echo -e "${GREEN}    Memulai pengunduhan NOOBZ...${NC}"
+    wget https://raw.githubusercontent.com/Pemulaajiw/script/main/noobzvpns.zip
+    unzip noobzvpns.zip
+    chmod +x noobzvpns/*
+    cd noobzvpns
+    bash install.sh
+    rm -rf noobzvpns
+    systemctl restart noobzvpns
+    clear
+}
+
+res15() {
+    echo -e "${GREEN}    Memulai pengunduhan TR-GO...${NC}"
+    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ins-trgo.sh && chmod +x       ins-trgo.sh && ./ins-trgo.sh
+    clear
+}
+
 
 # --- Proses Instalasi HOKAGE LEGEND ---
-function SKT4100(){
+function HOKAGEINSTALL(){
     echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR}    PROCESS INSTALLED SSH WS / OPENVPN    ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
@@ -515,16 +547,6 @@ function SKT4100(){
     res10
     
     echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-    echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD NOOBZ           ${NC}${BIBlue} │${NC}"
-    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res12
-    
-    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-    echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD TR-GO           ${NC}${BIBlue} │${NC}"
-    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res13
-    
-    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR}    CONFIGURING DROPBEAR              ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res11
@@ -532,9 +554,24 @@ function SKT4100(){
     echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR}  ATUR JADWAL REBOOT              ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    res12
+
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR} PANTAU PEMAKAIANA KUOTA           ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    res13
+    
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR} SETUP NOOBZVPN SERVER           ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res14
+    
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR} SETUP TR-GO SERVER           ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    res15
 }
-SKT4100 # Memanggil fungsi SKT4100
+HOKAGEINSTALL # Memanggil fungsi SKT4100
 
 # --- Konfigurasi Post-Instalasi ---
 # Pastikan file /home/re_otm ada dan berikan nilai default jika tidak
@@ -566,7 +603,7 @@ if [ ! -f "/etc/log-create-user.log" ]; then
 fi
 history -c
 
-serverV=$( curl -sS https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/versi )
+serverV=$( curl -sS https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/versi )
 echo "$serverV" > /opt/.ver
 
 aureb=$(cat /home/re_otm)
@@ -581,8 +618,6 @@ cd
 
 # --- Pengambilan Info Server & Pembersihan File ---
 curl -sS ifconfig.me > /etc/myipvps
-curl -s ipinfo.io/city?token=75082b4831f909 >> /etc/xray/city
-curl -s ipinfo.io/org?token=75082b4831f909 | cut -d " " -f 2-10 >> /etc/xray/isp
 rm /root/setup.sh >/dev/null 2>&1
 rm /root/slhost.sh >/dev/null 2>&1
 rm /root/ssh-vpn.sh >/dev/null 2>&1
@@ -593,6 +628,9 @@ rm /root/ohp.sh >/dev/null 2>&1
 rm /root/update.sh >/dev/null 2>&1
 rm /root/slowdns.sh >/dev/null 2>&1
 rm /root/udp-custom.sh >/dev/null 2>&1 # Hapus file udp-custom.sh setelah digunakan
+rm -rf /etc/noobz
+mkdir -p /etc/noobz
+echo "" > /etc/xray/noob
 
 # --- Pembuatan Direktori Bot dan Limit ---
 rm -rf /etc/bot
@@ -609,10 +647,16 @@ mkdir -p /etc/vless
 mkdir -p /etc/trojan
 touch /etc/bot/.bot.db
 touch /etc/vmess/.vmess.db
+touch /etc/typexray
+touch /etc/waktulock
 sudo chmod 755 /home/vps
 sudo find /home/vps/public_html -type f -exec chmod 644 {} \;
 sudo find /home/vps/public_html -type d -exec chmod 755 {} \;
 sudo chown -R www-data:www-data /home/vps/public_html
+mkdir -p /etc/kyt/limit/vmess/ip
+mkdir -p /etc/kyt/limit/vless/ip
+mkdir -p /etc/kyt/limit/trojan/ip
+mkdir -p /etc/kyt/limit/ssh/ip
 # --- Log Waktu Instalasi ---
 secs_to_human "$(($(date +%s) - ${start}))" | tee -a log-install.txt
 sleep 3
@@ -622,26 +666,32 @@ cd
 # --- Kirim Pesan Sukses ke Telegram ---
 IPVPS=$(curl -s https://ipinfo.io/ip)
 HOSTNAME=$(hostname)
-OS=$(lsb_release -d | awk '{print $2,$3,$4}')
+USERVPS=$(whoami)
+OS=$(lsb_release -d | awk -F"\t" '{print $2}')
 ISP=$(curl -s https://ipinfo.io/org | awk '{print $2,$3,$4}')
+USER=$client_name
 REGION=$(curl -s ipinfo.io/region)
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H:%M:%S')
 DOMAIN=$(cat /etc/xray/domain)
+exp_date=$(echo "$permission_file" | grep -w "$client_name" | awk '{print $3}')
 
 MESSAGE="\`\`\`
-❏━━━━━━━━━━━━━━━━━❏
-🤖 Hokage Store Project 🤖
-❏━━━━━━━━━━━━━━━━━❏
-❖ Status        : Active
-❖ Status SC     : Admin Access
-❖ Linux OS      : $OS
-❖ ISP           : $ISP
-❖ IP VPS        : $IPVPS
-❖ Area ISP      : $REGION
-❖ Waktu         : $TIME
-❖ Tanggal       : $DATE
-❖ Domain        : $DOMAIN
+❏━━━━━━━━━━━━━━━━━━━━━━━━━━❏
+ 🤖 FanFt Store Project 🤖
+❏━━━━━━━━━━━━━━━━━━━━━━━━━━❏
+❖ SCRIPT      : HULK SCRIPT
+❖ User VPS    : $USERVPS
+❖ User SC     : $USER
+❖ HOST VPS    : $HOSTNAME
+❖ Linux OS    : $OS
+❖ ISP         : $ISP
+❖ IP VPS      : $IPVPS
+❖ Area ISP    : $REGION
+❖ Waktu       : $TIME
+❖ Tanggal     : $DATE
+❖ Domain      : $DOMAIN
+❖ Expired     : $exp_date
 ❏━━━━━━━━***************━━━━━━━━━❏
 👑 Dev https://t.me/AJW29 👑
 ❏━━━━━━━******************━━━━━━━━❏
@@ -655,11 +705,23 @@ sleep 2
 echo -e "${BIBlue}════════════════════════════════════════${NC}"
 echo -e "${BIBlue} Script telah berhasil di install"
 rm -rf *
-rm /root/home
+#!/bin/bash
 echo -e ""
-read -rp "[\e[1;31mWARNING\e[0m] Reboot sekali biar ga error lur [default y](y/n)? " -e answer
+echo -e "❏━━━━━━━━━━━✦ SYSTEM NOTICE ✦━━━━━━━━━━━❏"
+echo -e "\e[1;31m⚠️ Reboot sekali biar ga error cuyy \e[0m"
+echo -e "❏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━❏"
+echo -en "\e[1;36m[default y](y/n)?\e[0m > "
+
+# Baca input user
+read -r answer
+
+# Cek input
 if [[ "$answer" =~ ^[Nn]$ ]]; then
+    echo -e "\n❌ Reboot dibatalkan oleh user."
     exit 0
 else
-    cat /dev/null > ~/.bash_history && history -c && reboot
+    echo -e "\n🔄 Melakukan reboot sistem..."
+    sleep 1
+    cat /dev/null > ~/.bash_history && history -c
+    reboot
 fi
