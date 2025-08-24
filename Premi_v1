@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script Installer
-# Dibuat oleh: TMTUNNEL D SABANG-MERAUKE
+# Dibuat oleh: HokageLegend9999
 
 # --- Definisi Warna ---
 NC='\033[0m' # No Color
@@ -91,7 +91,7 @@ while true; do
         break
     else
         echo -e "${red}❌ Client Name atau IP ($IP_VPS) tidak terdaftar!${NC}"
-        echo -e "➥ Hubungi admin ${CYAN}「 ✦ @@JW29 ✦ 」${NC}"
+        echo -e "➥ Hubungi admin ${CYAN}「 ✦ @HokageLegend ✦ 」${NC}"
         # Hapus file installer jika validasi gagal
         rm -f /root/home 
         exit 1
@@ -168,21 +168,7 @@ mkdir -p /etc/rmbl
 mkdir -p /etc/rmbl/theme
 mkdir -p /etc/rmbl/warnafont
 mkdir -p /var/lib/ >/dev/null 2>&1
-mkdir -p /etc/xray
-mkdir -p /root/.info
-curl -s ifconfig.me > /etc/xray/ipvps
-touch /etc/xray/domain
-mkdir -p /var/log/xray
-mkdir -p /root/.info
- mkdir -p /etc/user-create
-curl -sS "ipinfo.io/org?token=7a814b6263b02c" > /root/.info/.isp
-curl "ipinfo.io/city?token=7a814b6263b02c" > /root/.city
-chown www-data.www-data /var/log/xray
-chmod +x /var/log/xray
-touch /var/log/xray/access.log
-touch /var/log/xray/error.log
 echo "IP=" >> /var/lib/ipvps.conf
-echo "echo -e 'Vps Config User Account'" >> /etc/user-create/user.log
 clear
 
 # --- Input Nama Pengguna ---
@@ -254,7 +240,6 @@ if [[ $domain == "1" ]]; then
     mkdir -p /etc/xray
     mkdir -p /var/lib/kyt >/dev/null 2>&1
     mkdir -p /etc/v2ray
-    echo $host1 > /etc/xray/domain
     touch /etc/xray/domain
     touch /etc/v2ray/domain
     echo "$dns1" > /etc/nsdomain
@@ -292,8 +277,6 @@ declare -A themes=(
   [lightmagenta]=$'\E[40;1;105m:\033[0;95m'
   [lightcyan]=$'\E[40;1;106m:\033[0;96m'
 )
-
-# Daftar text warna
 declare -A warnaf=(
   [fontgren]=$'\033[1;92m'
   [fontcyan]=$'\033[1;96m'
@@ -308,8 +291,6 @@ BG : ${bg}
 TEXT : ${text}
 EOF
 done
-
-# Membuat file konfigurasi text
 for color in "${!warnaf[@]}"; do
   IFS=':' read -r warnaf_text <<< "${warnaf[$color]}"
   cat << EOF > "/etc/rmbl/warnafont/${color}"
@@ -319,8 +300,6 @@ done
 
 # Set tema default ke cyan
 echo "cyan" > /etc/rmbl/theme/color.conf
-
-# Set text default ke light
 echo "fontlight" > /etc/rmbl/warnafont/color.conf
 
 # --- Disable IPv6 ---
@@ -341,7 +320,7 @@ apt-get purge apparmor apparmor-utils -y >/dev/null 2>&1
 clear
 
 # --- Instalasi Tools Awal ---
-wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/tools.sh -O tools.sh &> /dev/null
+wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/TOOLS/tools.sh -O tools.sh &> /dev/null
 chmod +x tools.sh
 bash tools.sh
 start=$(date +%s)
@@ -357,13 +336,13 @@ wget https://raw.githubusercontent.com/XTLS/Xray-core/main/app/stats/command/com
 
 cd
 clear
-wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/limit.sh -O limit.sh && chmod +x limit.sh && ./limit.sh
+wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/TOOLS/limit.sh -O limit.sh && chmod +x limit.sh && ./limit.sh
 clear
 
 # --- Fungsi Instalasi Modul ---
 res3() {
     echo -e "${GREEN}    Memulai instalasi SSH WS / OpenVPN...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ssh-vpn.sh -O ssh-vpn.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/ssh-vpn.sh -O ssh-vpn.sh
     chmod +x ssh-vpn.sh
     ./ssh-vpn.sh
     sudo systemctl enable --now chrony.service
@@ -373,7 +352,7 @@ res3() {
 
 res4() {
     echo -e "${GREEN}    Memulai instalasi XRAY...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ins-xray.sh -O ins-xray.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/ins-xray.sh -O ins-xray.sh
     chmod +x ins-xray.sh
     ./ins-xray.sh
     clear
@@ -381,7 +360,7 @@ res4() {
 
 res5() {
     echo -e "${GREEN}    Memulai instalasi WEBSOCKET SSH...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/insshws.sh -O insshws.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/WEBSOCKET/insshws.sh -O insshws.sh
     chmod +x insshws.sh
     ./insshws.sh
     clear
@@ -389,7 +368,7 @@ res5() {
 
 res6() {
     echo -e "${GREEN}    Memulai instalasi BACKUP MENU...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/set-br.sh -O set-br.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/set-br.sh -O set-br.sh
     chmod +x set-br.sh
     ./set-br.sh
     clear
@@ -397,7 +376,7 @@ res6() {
 
 res7() {
     echo -e "${GREEN}    Memulai instalasi OHP...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/ohp.sh -O ohp.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/WEBSOCKET/ohp.sh -O ohp.sh
     chmod +x ohp.sh
     ./ohp.sh
     clear
@@ -405,7 +384,7 @@ res7() {
 
 res8() {
     echo -e "${GREEN}    Memulai pengunduhan EXTRA MENU...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/update.sh -O update.sh
+    wget https://raw.githubusercontent.com/fannatoresvzom/main/update.sh -O update.sh
     chmod +x update.sh
     ./update.sh
     clear
@@ -413,7 +392,7 @@ res8() {
 
 res9() {
     echo -e "${GREEN}    Memulai pengunduhan SLOWDNS...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/slowdns.sh -O slowdns.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/slowdns.sh -O slowdns.sh
     chmod +x slowdns.sh
     ./slowdns.sh
     clear
@@ -424,7 +403,7 @@ res10() {
     mkdir -p /usr/local/kyt/
     wget -q -O /usr/local/kyt/udp-mini "${REPO}Fls/udp-mini"
      chmod +x /usr/local/kyt/udp-mini
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/udp-custom.sh -O udp-custom.sh
+    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/udp-custom.sh -O udp-custom.sh
     chmod +x udp-custom.sh
     bash udp-custom.sh
     clear
@@ -485,24 +464,6 @@ res13() {
     fi
 }
 
-res14() {
-    echo -e "${GREEN}    Memulai pengunduhan NOOBZ...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/script/main/noobzvpns.zip
-    unzip noobzvpns.zip
-    chmod +x noobzvpns/*
-    cd noobzvpns
-    bash install.sh
-    rm -rf noobzvpns
-    systemctl restart noobzvpns
-    clear
-}
-
-res15() {
-    echo -e "${GREEN}    Memulai pengunduhan TR-GO...${NC}"
-    wget https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/ins-trgo.sh && chmod +x       ins-trgo.sh && ./ins-trgo.sh
-    clear
-}
-
 
 # --- Proses Instalasi HOKAGE LEGEND ---
 function HOKAGEINSTALL(){
@@ -556,20 +517,10 @@ function HOKAGEINSTALL(){
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res12
 
-    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+ echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR} PANTAU PEMAKAIANA KUOTA           ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res13
-    
-    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-    echo -e "${BIBlue}│ ${BGCOLOR} SETUP NOOBZVPN SERVER           ${NC}${BIBlue} │${NC}"
-    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res14
-    
-    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
-    echo -e "${BIBlue}│ ${BGCOLOR} SETUP TR-GO SERVER           ${NC}${BIBlue} │${NC}"
-    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res15
+    res12
 }
 HOKAGEINSTALL # Memanggil fungsi SKT4100
 
@@ -603,7 +554,7 @@ if [ ! -f "/etc/log-create-user.log" ]; then
 fi
 history -c
 
-serverV=$( curl -sS https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/versi )
+serverV=$( curl -sS https://raw.githubusercontent.com/hokagelegend9999/genom/main/TOOLS/versi )
 echo "$serverV" > /opt/.ver
 
 aureb=$(cat /home/re_otm)
@@ -618,6 +569,8 @@ cd
 
 # --- Pengambilan Info Server & Pembersihan File ---
 curl -sS ifconfig.me > /etc/myipvps
+curl -s ipinfo.io/city?token=75082b4831f909 >> /etc/xray/city
+curl -s ipinfo.io/org?token=75082b4831f909 | cut -d " " -f 2-10 >> /etc/xray/isp
 rm /root/setup.sh >/dev/null 2>&1
 rm /root/slhost.sh >/dev/null 2>&1
 rm /root/ssh-vpn.sh >/dev/null 2>&1
@@ -628,9 +581,6 @@ rm /root/ohp.sh >/dev/null 2>&1
 rm /root/update.sh >/dev/null 2>&1
 rm /root/slowdns.sh >/dev/null 2>&1
 rm /root/udp-custom.sh >/dev/null 2>&1 # Hapus file udp-custom.sh setelah digunakan
-rm -rf /etc/noobz
-mkdir -p /etc/noobz
-echo "" > /etc/xray/noob
 
 # --- Pembuatan Direktori Bot dan Limit ---
 rm -rf /etc/bot
@@ -678,9 +628,9 @@ exp_date=$(echo "$permission_file" | grep -w "$client_name" | awk '{print $3}')
 
 MESSAGE="\`\`\`
 ❏━━━━━━━━━━━━━━━━━━━━━━━━━━❏
- 🤖 FanFt Store Project 🤖
+ 🤖 Hokage Store Project 🤖
 ❏━━━━━━━━━━━━━━━━━━━━━━━━━━❏
-❖ SCRIPT      : HULK SCRIPT
+❖ Status      : Active
 ❖ User VPS    : $USERVPS
 ❖ User SC     : $USER
 ❖ HOST VPS    : $HOSTNAME
@@ -725,3 +675,4 @@ else
     cat /dev/null > ~/.bash_history && history -c
     reboot
 fi
+
