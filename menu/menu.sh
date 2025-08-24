@@ -395,15 +395,15 @@ get_sys_info
 get_net_info
 clear
 clear && clear && clear
-clear;clear;clear
+clear;clear;clear    
 echo -e "$COLBG1              $WH☯ MERAUKE PROJECT TUNNELING ☯              $COLBG1"
-echo -e "$COLOR1 CLIENT        $WH:  $client      $COLOR1 OS            $WH:  $MODEL2"
-echo -e "$COLOR1 UPTIME        $WH:  $SERONLINE   $COLOR1 DOMAIN        $WH:  $(cat /etc/xray/domain)"
-echo -e "$COLOR1 IP            $WH:  $IPVPS       $COLOR1 RAM           $WH:  $uram MB / $tram MB"
-echo -e "$COLOR1 DATE & TIME   $WH:  $DATE2       $COLOR1 ISP           $WH:  $ISP"
-echo -e "$COLOR1 EXPIRED       $WH:  $exprd       $COLOR1 CITY          $WH:  $CITY"
-echo -e "$COLOR1 AUTHOR        $WH:  $author      $COLOR1 VERSI         $WH:  $(cat /opt/.ver) Latest Version"
-echo -e "$COLOR1 MASA AKTIF    $WH:  $days_remaining hari$COLOR1 $ping \e[037;1m [ $url ]"
+echo -e "$COLOR1  SYSTEM $WH: $(grep -w PRETTY_NAME /etc/os-release | cut -d'=' -f2 | tr -d '"')$NC""$COLOR1  CLIENT $WH: $client$NC"
+echo -e "$COLOR1  RAM    $WH: $(free -m | awk 'NR==2 {print $2}') MB$NC""$COLOR1  DATE & TIME $WH: $DATE2$NC"
+echo -e "$COLOR1  UPTIME $WH: $(uptime -p | cut -d " " -f 2-)$NC""$COLOR1  EXPIRED $WH: $exprd$NC"
+echo -e "$COLOR1  IP     $WH: $(curl -s ipv4.icanhazip.com)$NC""$COLOR1  AUTHOR $WH: $author$NC"
+echo -e "$COLOR1  CITY   $WH: $(cat /etc/xray/city)$NC""$COLOR1  MASA AKTIF $WH: $days_remaining hari$NC"
+echo -e "$COLOR1  ISP    $WH: $(cat /etc/xray/isp)$NC""$COLOR1  VERSI $WH: $(cat /opt/.ver) Latest Version$NC"
+echo -e "$COLOR1  DOMAIN $WH: $(cat /etc/xray/domain)$NC""$COLOR1  $ping \e[037;1m [ $url ]$NC"
 echo -e "$COLBG1                 $WH[🛠️] STATUS SERVICE                  $COLBG1"
 echo -e "$COLOR1 SSH     :$status_ws""  NGINX     :$status_nginx""  XRAY    :$status_xray""  DROPBEAR : $status_beruangjatuh"
 echo -e "$COLOR1 SSH       VMESS         VLESS        TROJAN        NOOBZVPN        TROJANGO $NC"
