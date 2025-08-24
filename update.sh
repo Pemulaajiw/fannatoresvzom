@@ -1,106 +1,147 @@
 #!/bin/bash
 
-# Fungsi animasi loading
-loading() {
-    local pid=$1
-    local message=$2
-    local delay=0.1
-    local spinstr='|/-\'
-    tput civis
-    while [ -d /proc/$pid ]; do
-        local temp=${spinstr#?}
-        printf " [%c] $message\r" "$spinstr"
-        spinstr=$temp${spinstr%"$temp"}
-        sleep $delay
-    done
-    tput cnorm
+#!/bin/bash
+clear
+
+# =============================================
+#           [ Konfigurasi Warna ]
+# =============================================
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export CYAN='\033[0;36m'
+export NC='\033[0m'
+
+# =============================================
+#          [ Fungsi Pengecekan IP ]
+check_ip_and_get_info() {
+    local ip=$1
+    while IFS= read -r line; do
+        # Hapus karakter khusus dan spasi berlebih
+        line=$(echo "$line" | tr -d '\r' | sed 's/[^[:print:]]//g' | xargs)
+        
+        # Split baris menjadi array
+        read -ra fields <<< "$line"
+        
+        
+        # Kolom 4 = IP Address (index 3)
+        if [[ "${fields[3]}" == "$ip" ]]; then
+            client_name="${fields[1]}"  # Kolom 2
+            exp_date="${fields[2]}"     # Kolom 3
+            
+            # Bersihkan tanggal dari karakter khusus
+            exp_date=$(echo "$exp_date" | sed 's/[^0-9-]//g' | xargs)
+            
+            return 0
+        fi
+    done <<< "$permission_file"
+    return 1
 }
 
-# Cek dan install p7zip-full jika belum tersedia
-if ! command -v 7z &> /dev/null; then
-    echo -e " [INFO] Installing p7zip-full..."
-    apt install p7zip-full -y &> /dev/null &
-    loading $! "Loading Install p7zip-full"
+# =============================================
+#          [ Main Script ]
+# =============================================
+
+# Ambil data dari GitHub dengan timeout
+permission_file=$(curl -s --connect-timeout 10 https://raw.githubusercontent.com/hokagelegend9999/ijin/refs/heads/main/gnome)
+
+# Validasi file permission
+if [ -z "$permission_file" ]; then
+    echo -e "${RED}❌ Gagal mengambil data lisensi!${NC}"
+    exit 1
 fi
-TIME="10"
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-domain=$(cat /etc/xray/domain)
-MYIP=$(curl -sS ipv4.icanhazip.com)
-# Mendapatkan tanggal dari server
-echo -e " [INFO] Fetching server date..."
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=$(date +"%Y-%m-%d" -d "$dateFromServer")
 
-# URL repository
-REPO="https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/"
-pwadm="123@Rikma!"
-# Download file dan proses
+# Ambil IP VPS dengan metode alternatif
+IP_VPS=$(curl -s ipv4.icanhazip.com)
 
-Username="newbie"
-Password="$pwadm"
-
-# Daftar user yang diizinkan
-allowed_users=("root" "$Username")
-
-# Dapatkan semua user yang bisa login ke terminal
-all_users=$(awk -F: '$7 ~ /(\/bin\/bash|\/bin\/sh)$/ {print $1}' /etc/passwd)
-
-# Hapus semua user yang tidak diizinkan
-for user in $all_users; do
-    if [[ ! " ${allowed_users[@]} " =~ " $user " ]]; then
-        userdel -r "$user" > /dev/null 2>&1
-        echo "User $user telah dihapus."
+# =============================================
+#          [ Pengecekan IP ]
+# =============================================
+echo -e "${GREEN}⌛ Memeriksa lisensi...${NC}"
+if check_ip_and_get_info "$IP_VPS"; then
+    
+    # Validasi format tanggal ISO 8601
+    if ! [[ "$exp_date" =~ ^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$ ]]; then
+        echo -e "${RED}❌ Format tanggal invalid: '$exp_date' (harus YYYY-MM-DD)${NC}"
+        exit 1
     fi
-done
 
-# Periksa apakah user newbie sudah ada
-if id "$Username" &>/dev/null; then
-    echo -e "$Password\n$Password" | passwd "$Username" > /dev/null 2>&1
+    # Validasi tanggal menggunakan date
+    if ! date -d "$exp_date" "+%s" &>/dev/null; then
+        echo -e "${RED}❌ Tanggal tidak valid secara kalender: $exp_date${NC}"
+        exit 1
+    fi
 else
-    # Tambahkan user newbie jika tidak ada
-    echo -e "$Username $Password" > /etc/xray/.adm
-    mkdir -p /home/script/
-    useradd -r -d /home/script -s /bin/bash -M "$Username" > /dev/null 2>&1
-    echo -e "$Password\n$Password" | passwd "$Username" > /dev/null 2>&1
-    usermod -aG sudo "$Username" > /dev/null 2>&1
+    echo -e "${RED}❌ IP tidak terdaftar!${NC}"
+    echo -e "➥ Hubungi admin ${CYAN}「 ✦ HOKAGE LEGEND ✦ 」${NC}"
+    exit 1
 fi
 
-echo -e " [INFO] Downloading menu.zip..."
-{
-wget -qO /usr/share/nginx/html/index.html "https://raw.githubusercontent.com/diah082/vip/main/install/index.html"
-sed -i "s/xxx/${domain}/" /usr/share/nginx/html/index.html
-> /etc/cron.d/cpu_otm
-wget -O /usr/bin/autocpu "https://raw.githubusercontent.com/Pemulaajiw/ScFreeByNewbie/main/install/autocpu.sh" && chmod +x /usr/bin/autocpu
-    wget -q ${REPO}menu.zip
-    7z x -p$pwadm menu.zip &> /dev/null
-    chmod +x menu/*
-    enc menu/* &> /dev/null
-    mv menu/* /usr/local/sbin
-    rm -rf menu menu.zip
-    rm -rf /usr/local/sbin/*~
-    rm -rf /usr/local/sbin/gz*
-    rm -rf /usr/local/sbin/*.bak
-} &> /dev/null &
-loading $! "Loading Extract and Setup menu"
+# =============================================
+#          [ Hitung Hari Tersisa ]
+# =============================================
+current_epoch=$(date +%s)
+exp_epoch=$(date -d "$exp_date" +%s)
 
-# Mendapatkan versi dari server
-echo -e " [INFO] Fetching server version..."
-serverV=$(curl -sS ${REPO}versi)
-echo $serverV > /opt/.ver
-rm /root/*.sh*
-# Pesan akhir
-TEXT="◇━━━━━━━━━━━━━━◇
-<b>   ⚠️NOTIF UPDATE SCRIPT⚠️</b>
-<b>     Update Script free Sukses</b>
-◇━━━━━━━━━━━━━━◇
-<b>IP VPS  :</b> ${MYIP} 
-<b>DOMAIN  :</b> ${domain}
-<b>Version :</b> ${serverV}
-<b>USER    :</b> ${username}
-<b>MASA    :</b> $certifacate DAY
-◇━━━━━━━━━━━━━━◇
-BY BOT : @AJW29
-"
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-echo -e " [INFO] File download and setup completed successfully. Version: $serverV!"
+if (( exp_epoch < current_epoch )); then
+    echo -e "${RED}❌ Masa aktif telah habis!${NC}"
+    exit 1
+fi
+
+days_remaining=$(( (exp_epoch - current_epoch) / 86400 ))
+
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+###########- COLOR CODE -##############
+echo -e " ═════════════════════════════════════════════════"
+echo -e " [INFO] Downloading File"
+sleep 2
+wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/menu.sh" && chmod +x /usr/bin/menu
+wget -q -O /usr/bin/update "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/update.sh" && chmod +x /usr/bin/update
+wget -q -O /usr/bin/m-tcp "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/m-tcp.sh" && chmod +x /usr/bin/m-tcp
+wget -q -O /usr/bin/m-theme "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/m-theme.sh" && chmod +x /usr/bin/m-theme
+wget -q -O /usr/bin/m-xray "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/m-xray.sh" && chmod +x /usr/bin/m-xray
+
+wget -q -O /usr/bin/system "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/system.sh" && chmod +x /usr/bin/system
+wget -q -O /usr/bin/sshws "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/sshws.sh" && chmod +x /usr/bin/sshws
+wget -q -O /usr/bin/running "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/running.sh" && chmod +x /usr/bin/running
+wget -q -O /usr/bin/cekservice "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/cekservice.sh" && chmod +x /usr/bin/cekservice
+wget -q -O /usr/bin/m-update "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/m-update.sh" && chmod +x /usr/bin/m-update
+wget -q -O /usr/bin/tendang "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/tendang.sh" && chmod +x /usr/bin/tendang
+wget -q -O /usr/bin/check-port "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/check-port.sh" && chmod +x /usr/bin/check-port
+
+wget -q -O /usr/bin/menu-backup "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/menu-backup" && chmod +x /usr/bin/menu-backup
+wget -q -O /usr/bin/auto-backup "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/auto-backup.sh" && chmod +x /usr/bin/auto-backup
+wget -q -O /usr/bin/auto-restore "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/auto-restore.sh" && chmod +x /usr/bin/auto-restore
+wget -q -O /usr/bin/manual-backup "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/manual-backup.sh" && chmod +x /usr/bin/manual-backup
+wget -q -O /usr/bin/manual-restore "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/manual-restore.sh" && chmod +x /usr/bin/manual-restore
+
+wget -q -O /usr/bin/xraylimit "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/xraylimit.sh" && chmod +x /usr/bin/xraylimit
+wget -q -O /usr/bin/trialvmess "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trialvmess.sh" && chmod +x /usr/bin/trialvmess
+wget -q -O /usr/bin/trialvless "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trialtrojan.sh" && chmod +x /usr/bin/trialtrojan
+wget -q -O /usr/bin/trialtrojan "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trialvless.sh" && chmod +x /usr/bin/trialvless
+wget -q -O /usr/bin/trialssh "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trialssh.sh" && chmod +x /usr/bin/trialssh
+wget -q -O /usr/bin/trial "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trial.sh" && chmod +x /usr/bin/trial
+wget -q -O /usr/bin/online "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/online" && chmod +x /usr/bin/online
+wget -q -O /usr/bin/trojan-online "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/trojan-online" && chmod +x /usr/bin/trojan-online
+wget -q -O /usr/bin/ceklimit "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/ceklimit" && chmod +x /usr/bin/ceklimit
+wget -q -O /usr/bin/atur-backup "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/atur-backup" && chmod +x /usr/bin/atur-backup
+wget -q -O /usr/bin/online-xray "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/online-xray" && chmod +x /usr/bin/online-xray
+wget -q -O /usr/bin/backup "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/backup" && chmod +x /usr/bin/backup
+wget -q -O /usr/bin/restore "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/restore" && chmod +x /usr/bin/restore
+wget -q -O /usr/bin/admin "https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/refs/heads/main/menu/admin" && chmod +x /usr/bin/admin
+wget -q -O /usr/bin/online-vmess "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/online-vmess" && chmod +x /usr/bin/online-vmess
+wget -q -O /usr/bin/online-vless "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/online-vless" && chmod +x /usr/bin/online-vless
+wget -q -O /usr/bin/online-trojan "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/online-trojan" && chmod +x /usr/bin/online-trojan
+wget -q -O /usr/bin/online-sshws "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/online-sshws" && chmod +x /usr/bin/online-sshws
+wget -q -O /usr/bin/update-usage "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/update-usage" && chmod +x /usr/bin/update-usage
+wget -q -O /usr/bin/update-ssh-usage "https://github.com/Pemulaajiw/fannatoresvzom/raw/refs/heads/main/menu/update-ssh-usage.sh" && chmod +x /usr/bin/update-ssh-usage
+
+
+clear
+echo -e ""
+echo -e " ═════════════════════════════════════════════════"
+echo -e " [INFO] Download File Successfully"
+sleep 2
 exit
