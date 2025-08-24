@@ -21,7 +21,7 @@ apt-get update && apt-get upgrade -y && apt dist-upgrade -y && update-grub
 ## 2. UPDATE 
 
 ```
-COMINGSOON
+wget -q https://raw.githubusercontent.com/Pemulaajiw/fannatoresvzom/main/update.sh && bash update.sh
 ```
 
 
