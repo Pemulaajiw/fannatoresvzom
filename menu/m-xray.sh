@@ -4365,7 +4365,7 @@ echo -e "$COLOR1[$WH 0X $COLOR1]  ${WH}Go Back / Menu"
 echo -e "  $COLBG1              ${WH}   • $author •                 $COLBG1"
 }
 Main_Menu
-  read -p "Select Option [1-12 or x] : " main_menu_option
+  read -p "${WH}Select Option [1-12 or x] : " main_menu_option
   case $main_menu_option in
     1) clear ; Cek_User_Login ;;    # Cek User Login
     2) clear ; Restore_Account ;;       # List Member
