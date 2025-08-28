@@ -318,13 +318,6 @@ else
     status_ws_epro="${RED}OFF${NC}"
 fi
 
-# STATUS SERVICE HAPROXY
-if [[ $haproxy_service == "running" ]]; then 
-   status_haproxy="${GREEN}ON${NC}"
-else
-   status_haproxy="${RED}OFF${NC}"
-fi
-
 # // nginx
 nginx=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
 if [[ $nginx == "running" ]]; then
