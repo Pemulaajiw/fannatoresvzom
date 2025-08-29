@@ -402,12 +402,12 @@ echo -e "$COLOR1 SSH     :$status_ws""  NGINX     :$status_nginx""  XRAY    :$st
 echo -e "$COLOR1 SSH       VMESS         VLESS        TROJAN        NOOBZVPN        TROJANGO $NC"
 echo -e "$COLOR1  $total_ssh        $vmess            $vless            $trtls            $jumlah_noobz            $jumlah_trgo $NC"
 echo -e "$COLBG1                 $WH☯ MENU AUTOSCRIPT ☯                 $COLBG1"
-echo -e " $COLOR1[$WH 01 $COLOR1] SSH Menu        [$WH 06 $COLOR1] Bot Menu"
-echo -e " $COLOR1[$WH 02 $COLOR1] XRAY Menu       [$WH 07 $COLOR1] Running Menu"
-echo -e " $COLOR1[$WH 03 $COLOR1] NoobZ Menu      [$WH 08 $COLOR1] Restart Menu"
-echo -e " $COLOR1[$WH 04 $COLOR1] Backup Menu     [$WH 09 $COLOR1] System Menu"
-echo -e " $COLOR1[$WH 05 $COLOR1] Theme Menu      [$WH 10 $COLOR1] Update Menu"
-echo -e " $COLOR1[        MENU REBOOT SILAHKAN KETIK MENU 11" | lolcat
+echo -e "$COLOR1[$WH 01 $COLOR1]$WH SSH Menu        $COLOR1[$WH 06 $COLOR1]$WH Bot Menu"
+echo -e "$COLOR1[$WH 02 $COLOR1]$WH XRAY Menu       $COLOR1[$WH 07 $COLOR1]$WH Running Menu"
+echo -e "$COLOR1[$WH 03 $COLOR1]$WH NoobZ Menu      $COLOR1[$WH 08 $COLOR1]$WH Restart Menu"
+echo -e "$COLOR1[$WH 04 $COLOR1]$WH Backup Menu     $COLOR1[$WH 09 $COLOR1]$WH System Menu"
+echo -e "$COLOR1[$WH 05 $COLOR1]$WH Theme Menu      $COLOR1[$WH 10 $COLOR1]$WH Update Menu"
+echo -e "$COLOR1[        MENU REBOOT SILAHKAN KETIK MENU 11" | lolcat
 echo -e " [\e[36m•x\e[0m] Exit Panel"
 echo -e "$COLBG1              $WH☯ INFORMASI BANDWIDTH ☯               $COLBG1"
 echo -e "${WH}$COLOR1 HARI ini: ${WH}$todayd $today_v ${COLOR1}KEMARIN: ${WH}$yesterday $yesterday_v ${COLOR1}BULAN: ${WH}$month $month_v ${COLOR1}SPEED: ${WH}$speed $NC"
