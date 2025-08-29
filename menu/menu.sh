@@ -390,6 +390,30 @@ clear
 clear && clear && clear
 clear;clear;clear    
 echo -e "$COLBG1              $WH☯ MERAUKE PROJECT TUNNELING ☯              $COLBG1"
+# Sistem
+echo -e "   \e[38;5;196m• $WH SYSTEM    : $(grep -w PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"' | cut -d '.' -f 1-3 2>/dev/null || echo "Unable to detect system")"
+
+# RAM
+echo -e "   \e[38;5;196m• $WH RAM       : $(free -m | awk 'NR==2 {print $3 "MB / " $2 "MB"}')"
+
+# Uptime
+echo -e "   \e[38;5;196m• $WH UPTIME    : $(uptime -p 2>/dev/null | cut -d ' ' -f 2-10000 || echo "Unable to detect uptime")"
+
+# CPU Core
+echo -e "   \e[38;5;196m• $WH CPU CORE  : $(nproc 2>/dev/null || echo "N/A")"
+
+# ISP
+echo -e "   \e[38;5;196m• $WH ISP       : $(curl -s ipinfo.io/org 2>/dev/null | cut -d ' ' -f 2-100 || echo "Unable to detect ISP")"
+
+# City
+echo -e "   \e[38;5;196m• $WH CITY      : $(curl -s ipinfo.io/city 2>/dev/null || echo "Unable to detect city")"
+
+# IP Publik
+echo -e "   \e[38;5;196m• $WH IP        : $(curl -s ipv4.icanhazip.com 2>/dev/null || echo "Unable to detect IP")"
+
+# Domain
+echo -e "   \e[38;5;196m• $WH DOMAIN    : $(head -n1 /etc/xray/domain 2>/dev/null || echo "No domain registered")"
+
 echo -e "$COLOR1  SYSTEM $WH: $(grep -w PRETTY_NAME /etc/os-release | cut -d'=' -f2 | tr -d '"')$NC""$COLOR1  CLIENT $WH: $client$NC"
 echo -e "$COLOR1  RAM    $WH: $(free -m | awk 'NR==2 {print $2}') MB$NC""$COLOR1  DATE & TIME $WH: $DATE2$NC"
 echo -e "$COLOR1  UPTIME $WH: $(uptime -p | cut -d " " -f 2-)$NC""$COLOR1  EXPIRED $WH: $exprd$NC"
