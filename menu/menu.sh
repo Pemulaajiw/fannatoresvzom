@@ -413,7 +413,15 @@ echo -e "   $COLOR1• $WH IP        : $(curl -s ipv4.icanhazip.com 2>/dev/null 
 
 # Domain
 echo -e "   $COLOR1• $WH DOMAIN    : $(head -n1 /etc/xray/domain 2>/dev/null || echo "No domain registered")"
+# Date & Time
+echo -e "   $COLOR1• $WH DATE & TIME   : $(head -n1 /etc/xray/domain 2>/dev/null || echo "No domain registered")"
+# Masa Aktif & Ping
+echo -e "   $COLOR1• $WH MASA AKTIF    : $(head -n1 /etc/xray/domain 2>/dev/null || echo "No domain registered")"
 
+echo -e "$COLOR1  CLIENT    = $COLBG1$WH$client                           $COLBG1${NC}"
+echo -e "$COLOR1  EXPIRED   = $COLBG1$WH$exprd                            $COLBG1${NC}"
+echo -e "$COLOR1  AUTHOR    = $COLBG1$WH$author TUNNELING                 $COLBG1${NC}"
+echo -e "$COLOR1  VERSION   = $COLBG1$WHSUPER LTS                         $COLBG1${NC}"
 echo -e "$COLOR1  CLIENT $WH: $client$NC"
 echo -e "$COLOR1  DATE & TIME $WH: $DATE2$NC"
 echo -e "$COLOR1  EXPIRED $WH: $exprd$NC"
