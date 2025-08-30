@@ -310,13 +310,6 @@ else
     status_ws="${RED}OFF${NC}"
 fi
 
-# SSH Websocket Proxy
-ssh_ws=$( systemctl status ws | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $ssh_ws == "running" ]]; then
-    status_ws_epro="${GREEN}ON${NC}"
-else
-    status_ws_epro="${RED}OFF${NC}"
-fi
 
 # // nginx
 nginx=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
@@ -352,7 +345,7 @@ else
 fi
 
 stat_trgo=$( systemctl status trojan-go | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
-if [[ $stat_trgo == "running" ]]; then
+if [[ $stat_trgo == "runnin" ]]; then
     stat_trgo="${GREEN}ON${NC}"
 else
     stat_trgo="${RED}OFF${NC}"
@@ -421,7 +414,7 @@ echo -e "   $COLOR1• $WH MASA AKTIF    : $days_remaining hari  $ping \e[037;1m
 echo -e "$COLOR1  CLIENT    = $COLBG1$WH$client                           $COLBG1${NC}"
 echo -e "$COLOR1  EXPIRED   = $COLBG1$WH$exprd                            $COLBG1${NC}"
 echo -e "$COLOR1  AUTHOR    = $COLBG1$WH$author TUNNELING                 $COLBG1${NC}"
-echo -e "$COLOR1  VERSION   = $COLBG1$WHSUPER LTS                         $COLBG1${NC}"
+echo -e "$COLOR1  VERSION   = $COLBG1$WH SUPER LTS                         $COLBG1${NC}"
 echo -e "$COLBG1                 $WH[🛠️] STATUS SERVICE                  $COLBG1"
 echo -e "$COLOR1 SSH     :$status_ws""  NGINX     :$status_nginx""  XRAY    :$status_xray""  DROPBEAR : $status_beruangjatuh"
 echo -e "$COLOR1 SSH       VMESS         VLESS        TROJAN        NOOBZVPN        TROJANGO $NC"
