@@ -463,6 +463,24 @@ res13() {
         echo -e "${YELLOW}   -> Jadwal update kuota otomatis sudah ada, tidak ada yang diubah.${NC}"
     fi
 }
+res14() {
+    echo -e "${GREEN}   Memulai pengunduhan Noobzvpn...${NC}"
+    
+wget https://raw.githubusercontent.com/vermiliion/x-only/main/noobzvpns.zip
+unzip noobzvpns.zip
+chmod +x noobzvpns/*
+cd noobzvpns
+bash install.sh
+rm -rf noobzvpns
+systemctl restart noobzvpns
+clear
+}
+res15() {
+    echo -e "${GREEN}   Memulai pengunduhan TrojanGo...${NC}"
+    
+wget https://raw.githubusercontent.com/king-vpn/autoscript-vip/main/install/ins-trgo.sh && chmod +x ins-trgo.sh && ./ins-trgo.sh
+clear
+}
 
 
 # --- Proses Instalasi HOKAGE LEGEND ---
@@ -506,6 +524,16 @@ function HOKAGEINSTALL(){
     echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD UDP COSTUM           ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res10
+
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD NOOBZVPNS           ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    res14
+
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}│ ${BGCOLOR}        DOWNLOAD TRGO           ${NC}${BIBlue} │${NC}"
+    echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
+    res15
     
     echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR}    CONFIGURING DROPBEAR              ${NC}${BIBlue} │${NC}"
@@ -517,10 +545,10 @@ function HOKAGEINSTALL(){
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
     res12
 
- echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
+    echo -e "${BIBlue}╭══════════════════════════════════════════╮${NC}"
     echo -e "${BIBlue}│ ${BGCOLOR} PANTAU PEMAKAIANA KUOTA           ${NC}${BIBlue} │${NC}"
     echo -e "${BIBlue}╰══════════════════════════════════════════╯${NC}"
-    res12
+    res13
 }
 HOKAGEINSTALL # Memanggil fungsi SKT4100
 
