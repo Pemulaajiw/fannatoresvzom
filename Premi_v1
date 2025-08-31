@@ -403,9 +403,9 @@ res10() {
     mkdir -p /usr/local/kyt/
     wget -q -O /usr/local/kyt/udp-mini "${REPO}Fls/udp-mini"
      chmod +x /usr/local/kyt/udp-mini
-    wget https://raw.githubusercontent.com/hokagelegend9999/genom/main/SYSTEM/udp-custom.sh -O udp-custom.sh
-    chmod +x udp-custom.sh
-    bash udp-custom.sh
+    wget https://raw.githubusercontent.com/vermiliion/x-only/main/udepe.sh -O udepe.sh
+    chmod +x udepe.sh
+    bash udepe.sh
     clear
 }
 
