@@ -1268,16 +1268,16 @@ echo -e "  $COLBG1              ${WH}   • $author •                 $COLBG1"
 echo -e ""
 echo -ne " ${WH}Select menu ${COLOR1}: ${WH}"; read opt
 case $opt in
-01 | 1) clear ; usernew  ;;
-02 | 2) clear ; trial  ;;
-03 | 3) clear ; renew  ;;
-04 | 4) clear ; hapus  ;;
-05 | 5) clear ; cek  ;;
-06 | 6) clear ; cekconfig  ;;
-07 | 7) clear ; limitssh ;;
-08 | 8) clear ; listssh  ;;
-09 | 9) clear ; lockssh  ;;
-10 | 10) clear ; hapuslama  ;;
+01 | 1) clear ; cek  ;;
+02 | 2) clear ; usernew  ;;
+03 | 3) clear ; hapus  ;;
+04 | 4) clear ; renew  ;;
+05 | 5) clear ; trial  ;;
+06 | 6) clear ; lockssh  ;;
+07 | 7) clear ; hapuslama ;;
+08 | 8) clear ; cekconfig  ;;
+09 | 9) clear ; listssh  ;;
+10 | 10) clear ; limitssh  ;;
 00 | 0) clear ; menu  ;;
 X  | 0) clear ; sshws ;;
 x) exit ;;
