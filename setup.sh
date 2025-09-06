@@ -43,10 +43,10 @@ clear;clear;clear
 
 # // Banner
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "\033[92;1m              𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢 𝗦𝗖𝗥𝗜𝗣𝗧 𝗙𝗔𝗡𝗡𝗧𝗨𝗡𝗘𝗟              \033[0m"
-echo -e "  Developer » Klmpk𝗙𝗡VPN Tunneling{YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
+echo -e "\033[92;1m              𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢 𝗦𝗖𝗥𝗜𝗣𝗧 𝗡𝗫𝗡𝗧𝗨𝗡𝗘𝗟              \033[0m"
+echo -e "  Developer » Klmpk𝗡𝗫𝗡VPN Tunneling{YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
 echo -e "  » This Will Quick Setup VPN Server On Your Server"
-echo -e "  Pembuat : ${green}𝗙𝗔𝗡uzijww ${NC}"
+echo -e "  Pembuat : ${green}𝗡𝗫𝗡uzijww ${NC}"
 echo -e "  Recode By My Self NZNXAJW VPN STORE ${YELLOW}(${NC} 2024 ${YELLOW})${NC}"
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
@@ -212,33 +212,6 @@ echo -e "${red}Failed to dist-upgrade${neutral}"
 else
 echo -e "${green}System dist-upgraded successfully${neutral}"
 fi
-function base_package() {
-print_install "Menginstall Packet Yang Dibutuhkan"
-packages=(
-libnss3-dev liblzo2-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev
-libcap-ng-utils libselinux1-dev flex bison make libnss3-tools libevent-dev bc
-rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential
-gcc g++ htop lsof tar wget curl ruby zip unzip p7zip-full libc6 util-linux
-ca-certificates iptables iptables-persistent netfilter-persistent
-net-tools openssl gnupg gnupg2 lsb-release shc cmake git whois
-screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq
-tmux python3 python3-pip lsb-release gawk
-libncursesw5-dev libgdbm-dev tk-dev libffi-dev libbz2-dev checkinstall
-openvpn easy-rsa dropbear
-)
-for package in "${packages[@]}"; do
-if ! dpkg -s "$package" >/dev/null 2>&1; then
-if ! apt-get update -y; then
-echo -e "${red}Failed to update${neutral}"
-fi
-if ! apt-get install -y "$package"; then
-echo -e "${red}Failed to install $package${neutral}"
-fi
-else
-echo -e "${green}$package is already installed, skipping...${neutral}"
-fi
-done
-}
 # Buat direktori xray
 print_install "Membuat direktori xray"
     mkdir -p /etc/xray
@@ -379,6 +352,33 @@ function nginx_install() {
 }
 
 # Update and remove packages
+function base_package() {
+print_install "Menginstall Packet Yang Dibutuhkan"
+packages=(
+libnss3-dev liblzo2-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev
+libcap-ng-utils libselinux1-dev flex bison make libnss3-tools libevent-dev bc
+rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential
+gcc g++ htop lsof tar wget curl ruby zip unzip p7zip-full libc6 util-linux
+ca-certificates iptables iptables-persistent netfilter-persistent
+net-tools openssl gnupg gnupg2 lsb-release shc cmake git whois
+screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq
+tmux python3 python3-pip lsb-release gawk
+libncursesw5-dev libgdbm-dev tk-dev libffi-dev libbz2-dev checkinstall
+openvpn easy-rsa dropbear
+)
+for package in "${packages[@]}"; do
+if ! dpkg -s "$package" >/dev/null 2>&1; then
+if ! apt-get update -y; then
+echo -e "${red}Failed to update${neutral}"
+fi
+if ! apt-get install -y "$package"; then
+echo -e "${red}Failed to install $package${neutral}"
+fi
+else
+echo -e "${green}$package is already installed, skipping...${neutral}"
+fi
+done
+}
 clear
 # Fungsi input domain
 function pasang_domain() {
@@ -473,11 +473,10 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>Time     :</code><code>$TIMEZONE</code>
 <code>Exp Sc.  :</code><code>$exp</code>
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
-<b>FAN VPN STORE</b>
+<b>NXN VPN STORE</b>
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
 <i>Automatic Notifikasi Installer Script...</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://t.me/AJW29"},{"text":"Contack","url":"https://wa.me/6287812264674"}]]}'
-    curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://t.me/AJW29"},{"text":"Contack","url":"https://wa.me/6287898083051"}]]}l -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
 clear
 # Pasang SSL
@@ -485,62 +484,26 @@ function pasang_ssl() {
     clear
     print_install "Memasang SSL Pada Domain"
 
-    # Pastikan lsof tersedia
-    if ! command -v lsof &> /dev/null; then
-        apt-get update -y
-        apt-get install lsof -y
-    fi
-
-    # Hapus cert lama
-    rm -f /etc/xray/xray.key /etc/xray/xray.crt
-
-    # Baca domain
-    if [[ -f /root/domain ]]; then
-        domain=$(cat /root/domain)
-    else
-        echo "❌ Domain tidak ditemukan di /root/domain"
-        exit 1
-    fi
-
-    # Hentikan semua service di port 80 (apapun itu)
-    if lsof -t -i:80 >/dev/null 2>&1; then
-        STOPPID=$(lsof -t -i:80)
-        echo "🔴 Menutup proses di port 80 (PID: $STOPPID)"
-        kill -9 $STOPPID
-    fi
-
-    # Hentikan nginx kalau ada
-    if systemctl list-unit-files | grep -qw nginx.service; then
-        systemctl stop nginx
-    fi
-
-    # Siapkan direktori acme.sh
-    rm -rf /root/.acme.sh
-    mkdir -p /root/.acme.sh
-
-    # Download acme.sh universal
-    curl -s https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
-    chmod +x /root/.acme.sh/acme.sh
-
-    # Install / upgrade acme.sh
-    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
-    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-
-    # Issue cert
-    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
-
-    # Install cert ke jalur xray
-    /root/.acme.sh/acme.sh --install-cert -d $domain \
-        --fullchainpath /etc/xray/xray.crt \
-        --keypath /etc/xray/xray.key \
-        --ecc
-
-    chmod 600 /etc/xray/xray.key
-    chmod 644 /etc/xray/xray.crt
-
-    print_success "✅ SSL Certificate berhasil dipasang untuk domain: $domain"
+    if [ ! -d "/root/.acme.sh" ]; then
+mkdir /root/.acme.sh
+fi
+systemctl daemon-reload
+systemctl stop haproxy
+systemctl stop nginx
+if [ ! -f "/root/.acme.sh/acme.sh" ]; then
+curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+chmod +x /root/.acme.sh/acme.sh
+fi
+domain=$(cat /etc/xray/domain)
+/root/.acme.sh/acme.sh --upgrade --auto-upgrade
+/root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+/root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
+/root/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/udud.pem
+chown www-data:www-data /etc/xray/xray.key
+chown www-data:www-data /etc/xray/xray.crt
+print_success "SSL Certificate"
 }
-
 function make_folder_xray() {
 rm -rf /etc/vmess/.vmess.db
     rm -rf /etc/vless/.vless.db
@@ -609,13 +572,13 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
     curl -s ipinfo.io/city >>/etc/xray/city
     curl -s ipinfo.io/org | cut -d " " -f 2-10 >>/etc/xray/isp
     print_install "Memasang Konfigurasi Packet"
-    wget -O /etc/haproxy/haproxy.cfg "${REPO}config/haproxy.cfg" >/dev/null 2>&1
-    wget -O /etc/nginx/conf.d/xray.conf "${REPO}config/xray.conf" >/dev/null 2>&1
+    wget -O /etc/haproxy/haproxy.cfg "https://raw.githubusercontent.com/Pemulaajiw/script/main/config/haproxy.cfg" >/dev/null 2>&1
+    wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/Pemulaajiw/script/main/config/xray.conf" >/dev/null 2>&1
     sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
     sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
     curl ${REPO}config/nginx.conf > /etc/nginx/nginx.conf
     
-cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
+    cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
 
     # > Set Permission
     chmod +x /etc/systemd/system/runn.service
@@ -898,8 +861,8 @@ fi
 
 clear
 # banner
-echo "Banner /etc/kyt.txt" >>/etc/ssh/sshd_config
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/dropbear
+echo "Banner /etc/gerhanatunnel.txt" >>/etc/ssh/sshd_config
+sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/gerhanatunnel.txt"@g' /etc/default/dropbear
 
 # Ganti Banner
 wget -O /etc/kyt.txt "${REPO}files/issue.net"
@@ -945,64 +908,6 @@ cd
 apt autoclean -y >/dev/null 2>&1
 apt autoremove -y >/dev/null 2>&1
 print_success "ePro WebSocket Proxy"
-}
-
-function udp-custom(){
-print_install "Menginstall UDP-CUSTOM"
-cd
-rm -rf /root/udp
-mkdir -p /root/udp
-
-# install udp-custom
-echo downloading udp-custom
-wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_VyhL5BILtoZZTW4rhnUiYzc4zHOsXQ8' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_VyhL5BILtoZZTW4rhnUiYzc4zHOsXQ8" -O /root/udp/udp-custom && rm -rf /tmp/cookies.txt
-chmod +x /root/udp/udp-custom
-
-echo downloading default config
-wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_XNXsufQXzcTUVVKQoBeX5Ig0J7GngGM' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_XNXsufQXzcTUVVKQoBeX5Ig0J7GngGM" -O /root/udp/config.json && rm -rf /tmp/cookies.txt
-chmod 644 /root/udp/config.json
-
-if [ -z "$1" ]; then
-cat <<EOF > /etc/systemd/system/udp-custom.service
-[Unit]
-Description=UDP Custom by ePro Dev. Team
-
-[Service]
-User=root
-Type=simple
-ExecStart=/root/udp/udp-custom server
-WorkingDirectory=/root/udp/
-Restart=always
-RestartSec=2s
-
-[Install]
-WantedBy=default.target
-EOF
-else
-cat <<EOF > /etc/systemd/system/udp-custom.service
-[Unit]
-Description=UDP Custom by ePro Dev. Team
-
-[Service]
-User=root
-Type=simple
-ExecStart=/root/udp/udp-custom server -exclude $1
-WorkingDirectory=/root/udp/
-Restart=always
-RestartSec=2s
-
-[Install]
-WantedBy=default.target
-EOF
-fi
-
-echo start service udp-custom
-systemctl start udp-custom &>/dev/null
-
-echo enable service udp-custom
-systemctl enable udp-custom &>/dev/null
-clear
-print_success "UDP-CUSTOM BY FAN STORE VPN"
 }
 
 function noobzvpn(){
@@ -1151,7 +1056,7 @@ cd
     clear
     print_install "Memasang Menu Packet"
     wget ${REPO}menu/menu.zip
-    7z x -pFanVpnID0311 menu.zip
+    7z x -pFanVpnID0311DiJual58 menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
     rm -rf menu
@@ -1285,7 +1190,6 @@ clear
     ins_swab
     ins_Fail2ban
     ins_epro
-	udp-custom
     noobzvpn
     ins_trgo
     ins_restart
